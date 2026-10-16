@@ -1,0 +1,29 @@
+logging:
+  pattern:
+    level: '%5p [traceId=%X{traceId:-}]'
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: CramSchool
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.school.entity
+  configuration:
+    map-underscore-to-camel-case: true
+
+security:
+  auth:
+    jwt-secret: ${JWT_SECRET}
+    key-encryption-secret: ${ACCOUNT_KEY_SECRET}
+    token-ttl-seconds: 900
+    issuer: cram-school
+    require-https: true

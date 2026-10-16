@@ -1,0 +1,46 @@
+# Build output
+target/
+*.class
+*.log
+logs/
+
+# IDE and operating system files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Actual Spring configuration is local; commit only examples.
+application*.yml
+application*.yaml
+application*.properties
+!application.example.yml
+!application.example.yaml
+!application.example.properties
+
+# Local environment and credential files
+.env
+.env.*
+!.env.example
+!.env.sample
+.aws/
+.ssh/
+secrets/
+credentials/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+
+# Local database exports and backups (keep source SQL migrations).
+*.dump
+*.sql.gz
+*.sql.zip
+*.bak
+backups/
+dumps/
