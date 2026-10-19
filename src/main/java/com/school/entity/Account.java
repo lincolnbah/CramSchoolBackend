@@ -1,13 +1,15 @@
 package com.school.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.ToString;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.school.enums.EnableEnum;
+import com.school.enums.RoleEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -31,8 +33,8 @@ public class Account {
     @Schema(description = "使用者姓名")
     private String name;
 
-    @Schema(description = "角色 ID，對應 role.id，資料庫預設為 4（家長）")
-    private Integer role;
+    @Schema(description = "角色 ID")
+    private RoleEnum role;
 
     @Schema(description = "聯絡電話")
     private String phone;
@@ -45,6 +47,9 @@ public class Account {
 
     @Schema(description = "Google 登入識別碼")
     private String googleId;
+
+    @Schema(description = "狀態, 1 啟用, 0停用")
+    private EnableEnum status;
 
     @Schema(description = "帳號專屬 RSA 公鑰，SPKI Base64")
     private String publicKey;

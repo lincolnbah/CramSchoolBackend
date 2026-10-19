@@ -3,6 +3,7 @@ package com.school.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.school.enums.MethodEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -18,7 +19,7 @@ public class Api {
     @Schema(description = "API 路徑")
     private String path;
 
-    @Schema(description = "HTTP 方法：1 GET、2 POST、3 PUT、4 DELETE、5 PATCH、6 HEAD、7 OPTIONS")
-    private Integer method;
+    @Schema(description = "HTTP 方法：1 GET、2 POST、3 PUT、4 DELETE、5 PATCH")
+    private MethodEnum method;
 
 }
