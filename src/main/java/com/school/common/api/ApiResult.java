@@ -114,6 +114,10 @@ public class ApiResult<T> {
         return new ApiResult<T>(CommonCode.FAILED.getCode(), message, null);
     }
 
+    public static <T> ApiResult<T> failed(String message, int code) {
+        return new ApiResult<T>(code, message, null);
+    }
+
     /**
      * 失敗回傳結果
      */

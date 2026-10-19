@@ -4,6 +4,8 @@ logging:
 
 server:
   port: 8080
+  servlet:
+    context-path: /api
 
 spring:
   application:
@@ -22,8 +24,7 @@ mybatis-plus:
 
 security:
   auth:
-    jwt-secret: ${JWT_SECRET}
-    key-encryption-secret: ${ACCOUNT_KEY_SECRET}
-    token-ttl-seconds: 900
-    issuer: cram-school
-    require-https: true
+    jwt-secret: li6NElLGIrcN6+IwCkB8nxBNnrwy4KkXVpBoeB63cK0=
+
+
+

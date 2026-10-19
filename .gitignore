@@ -11,11 +11,9 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Actual Spring configuration is local; commit only examples.
-application*.yml
+# Local Spring YAML (.yaml) and properties configuration; commit examples.
 application*.yaml
 application*.properties
-!application.example.yml
 !application.example.yaml
 !application.example.properties
 

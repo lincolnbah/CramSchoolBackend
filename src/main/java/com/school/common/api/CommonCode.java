@@ -10,6 +10,9 @@ import lombok.Getter;
 @Getter
 public enum CommonCode implements IErrorCode {
 
+    /**
+     * 一般
+     */
     // 成功
     SUCCEED(200, "Succeed"),
     // 失敗
@@ -18,10 +21,33 @@ public enum CommonCode implements IErrorCode {
     PARAM_INVALID(10002, "Param invalid"),
     // 頻繁請求
     FREQUENT_REQUESTS(10003, "Frequent requests"),
-    // 身份錯誤
-    ACCESS_DENY(10004, "權限不足"),
-    UNAUTHORIZED(10005, "尚未登入，或 Token 無效、已過期"),
-    LOGIN_FAILED(10006, "帳號或密碼錯誤"),
+    // api header錯誤
+    API_HEADER_ERROR(10004, "api header error"),
+
+    /**
+     * 帳號
+     */
+    // 停權
+    ACCOUNT_SUSPENDED(80000, "account suspended"),
+    // 無權限
+    ACCOUNT_NO_PERMISSION(80001, "No permission"),
+    ACCOUNT_ABNORMAL(80002, "account abnormal"),
+
+    /**
+     * token
+     */
+    // 驗證失敗
+    TOKEN_ERROR(90000, "token verify error"),
+    // 缺少token
+    LACK_TOKEN(90001, "Lack token"),
+    // token格式錯誤
+    TOKEN_FORMAT_ERROR(90002, "token format error"),
+    // token過期
+    TOKEN_EXPIRED(90003, "token expired"),
+    // 無效token
+    SIGN_INVALID(90004, "token signature is invalid"),
+    // 錯誤token
+    TOKEN_FALSIFY(90005, "token falsify"),
 
 
     ;
