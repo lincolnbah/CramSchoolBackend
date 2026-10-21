@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Account {
 
     @TableId(type = IdType.AUTO)
-    @Schema(description = "帳號主鍵")
+    @Schema(description = "uid")
     private Integer id;
 
     @Schema(description = "登入帳號")

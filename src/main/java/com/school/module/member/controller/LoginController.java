@@ -24,4 +24,5 @@ public class LoginController {
     public ApiResult<?> login(@Valid @RequestBody LoginDTO loginDto) {
         return ApiResult.success(loginService.login(loginDto));
     }
+
 }

@@ -13,13 +13,13 @@ import lombok.Data;
 public class Api {
 
     @TableId(type = IdType.AUTO)
-    @Schema(description = "API 主鍵")
+    @Schema(description = "uid")
     private Integer id;
 
     @Schema(description = "API 路徑")
     private String path;
 
-    @Schema(description = "HTTP 方法：1 GET、2 POST、3 PUT、4 DELETE、5 PATCH")
+    @Schema(description = "API Method")
     private MethodEnum method;
 
 }

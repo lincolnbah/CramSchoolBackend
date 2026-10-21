@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 public enum RoleEnum {
 
     ADMIN(1, "管理員"),
-    CRAM_SCHoOL(2, "補習班"),
+    CRAM_SCHOOL(2, "補習班"),
     TUTOR(3, "補習班老師"),
     PARENTS(4, "家長"),
 
