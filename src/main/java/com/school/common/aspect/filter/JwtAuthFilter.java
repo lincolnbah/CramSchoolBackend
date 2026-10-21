@@ -27,12 +27,14 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import org.springframework.web.util.ServletRequestPathUtils;
 import org.springframework.web.util.pattern.PathPattern;
 import org.springframework.web.util.pattern.PathPatternParser;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigInteger;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -90,6 +92,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 accountId = (Integer) accountIdClaim;
             } else if (accountIdClaim instanceof Long) {
                 accountId = Math.toIntExact((Long) accountIdClaim);
+            } else if (accountIdClaim instanceof BigInteger) {
+                accountId = ((BigInteger) accountIdClaim).intValueExact();
             }
 
             String account = String.valueOf(allClaimMap.get("account"));
@@ -97,7 +101,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             RoleEnum roleEnum = RoleEnum.convertRoleEnum(roleId);
 
             if (StringUtils.isBlank(account) || account.equals("null") || roleEnum == null || accountId == null) {
-                log.error("jwt內容錯誤, 無資料, 帳號:{}, role:{}", account, roleId);
+                log.error("jwt內容錯誤, 無資料, 帳號:{}, role:{}, accountId:{}", account, roleEnum, accountId);
                 handlerExceptionResolver.resolveException(request, response, null, new ApiException(CommonCode.TOKEN_FALSIFY));
                 return;
             }
@@ -194,6 +198,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
      */
     private boolean isApiNeeded(HttpServletRequest request) {
         try {
+            if (handlerMapping.usesPathPatterns()
+                    && !ServletRequestPathUtils.hasParsedRequestPath(request)) {
+                ServletRequestPathUtils.parseAndCache(request);
+            }
+
             HandlerExecutionChain executionChain = handlerMapping.getHandler(request);
 
             if (executionChain == null || !(executionChain.getHandler() instanceof HandlerMethod)) {

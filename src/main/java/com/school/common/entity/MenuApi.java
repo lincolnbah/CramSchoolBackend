@@ -12,7 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 public class MenuApi {
 
     @TableId(type = IdType.AUTO)
-    @Schema(description = "關聯資料主鍵")
+    @Schema(description = "uid")
     private Integer id;
 
     @Schema(description = "選單 ID，對應 menu.id")

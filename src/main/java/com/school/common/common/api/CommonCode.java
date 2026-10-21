@@ -25,6 +25,12 @@ public enum CommonCode implements IErrorCode {
     API_HEADER_ERROR(10004, "api header error"),
 
     /**
+     * 金流
+     */
+    // 綠界商品名稱不能超過400字, 需要減少商品項目在下單
+    EC_PAY_PRODUCT_NAME_TO_LONG(10004, "Please remove some items from your cart before checking out."),
+
+    /**
      * 加解密
      */
     // 待加密資料過長
@@ -35,6 +41,11 @@ public enum CommonCode implements IErrorCode {
     DECRYPT_ERROR(70002, "Decrypt error"),
     // 生成RSA公私鑰失敗
     CREATE_RSA_KEY_ERROR(70003, "Failed to create key"),
+    // 加密失敗
+    ENCRYPTION_FAILED(70004, "Encryption failed"),
+    // 編碼失敗
+    ENCODING_FAILED(70005, "Encoding failed"),
+
 
     /**
      * 帳號
