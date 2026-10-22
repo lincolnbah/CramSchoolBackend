@@ -23,6 +23,12 @@ public enum CommonCode implements IErrorCode {
     FREQUENT_REQUESTS(10003, "Frequent requests"),
     // api header錯誤
     API_HEADER_ERROR(10004, "api header error"),
+    // 無效請求
+    INVALID_REQUEST(10005, "Invalid request"),
+    // API驗證異常
+    API_VERIFY_ERROR(10006, "Verify api error"),
+    // 功能未開放
+    FEATURE_NOT_YET_AVAILABLE(10007, "Feature not yet available"),
 
     /**
      * 金流

@@ -37,4 +37,7 @@ security:
   auth:
     jwt-secret: li6NElLGIrcN6+IwCkB8nxBNnrwy4KkXVpBoeB63cK0=
 
+status:
+  payment-gateway: 1 #金流開通狀態, 0 未開通, 1 已開通
+
 
