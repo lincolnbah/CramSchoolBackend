@@ -27,9 +27,6 @@ public class PaymentGateway {
     @Schema(description = "支付完成用戶跳轉頁面")
     private String returnUrl;
 
-    @Schema(description = "支付完成金流回調API")
-    private String notifyUrl;
-
     @Schema(description = "金流三方api")
     private String apiUrl;
 

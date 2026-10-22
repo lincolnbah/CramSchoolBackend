@@ -1,4 +1,4 @@
-package com.school.common.utils;
+package com.school.module.order.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

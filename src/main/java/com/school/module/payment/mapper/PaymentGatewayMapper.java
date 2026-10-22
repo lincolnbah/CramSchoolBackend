@@ -1,4 +1,4 @@
-package com.school.common.mapper;
+package com.school.module.payment.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.school.module.payment.entity.PaymentGateway;

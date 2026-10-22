@@ -1,7 +1,9 @@
 package com.school.common.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import lombok.Getter;
 
+@Getter
 public enum RoleEnum {
 
     ADMIN(1, "管理員"),
@@ -15,14 +17,6 @@ public enum RoleEnum {
     private final Integer code;
 
     private final String text;
-
-    public Integer getCode() {
-        return this.code;
-    }
-
-    public String getText() {
-        return this.text;
-    }
 
     RoleEnum(Integer code, String text) {
         this.code = code;

@@ -1,5 +1,6 @@
 package com.school.module.payment.dto;
 
+import com.school.common.enums.PaymentGatewayEnum;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -24,5 +25,8 @@ public class PaymentDTO {
 
     // 訂單號
     private String orderNo;
+
+    // 三方金流
+    private PaymentGatewayEnum paymentGateway;
 
 }

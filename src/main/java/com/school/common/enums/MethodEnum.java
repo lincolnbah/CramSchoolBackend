@@ -1,7 +1,9 @@
 package com.school.common.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import lombok.Getter;
 
+@Getter
 public enum MethodEnum {
 
     GET(1),
@@ -14,10 +16,6 @@ public enum MethodEnum {
 
     @EnumValue
     private final Integer code;
-
-    public Integer getCode() {
-        return this.code;
-    }
 
     MethodEnum(Integer code) {
         this.code = code;

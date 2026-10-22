@@ -63,7 +63,25 @@ CREATE TABLE IF NOT EXISTS `payment_gateway` (
   `hash_key` text,
   `hash_iv` text,
   `return_url` varchar(255) NOT NULL COMMENT '支付完成用戶跳轉頁面',
-  `notify_url` varchar(255) NOT NULL COMMENT '支付完成金流回調API',
   `api_url` varchar(255) NOT NULL COMMENT '金流三方api',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='金流配置';
+
+CREATE TABLE IF NOT EXISTS `order` (
+`id` BIGINT NOT NULL AUTO_INCREMENT,
+`account_id` INT NOT NULL COMMENT '用戶uid',
+`order_no` VARCHAR(255) NOT NULL COMMENT '訂單號',
+`third_order_no` VARCHAR(45) NULL COMMENT '金流方訂單號',
+`amount` DECIMAL(12,2) NOT NULL COMMENT '金額',
+`fee` DECIMAL(12,2) NULL COMMENT '金流方手續費',
+`payment_type` VARCHAR(255) NULL COMMENT '用戶付款方式',
+`payment_time` DATETIME NULL COMMENT '用戶付款時間',
+`status` INT NOT NULL COMMENT '狀態, 1 待處理, 2 處理中, 3 失敗, 4 成功, 5 取消',
+`payment_gateway` INT NULL COMMENT '三方金流',
+`message` TEXT NULL COMMENT '三方交易訊息';
+`update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間',
+`create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
+PRIMARY KEY (`id`)
+UNIQUE KEY `orderNo` (`order_no`)
+) DEFAULT CHARSET=utf8mb4 COMMENT = '訂單';
+

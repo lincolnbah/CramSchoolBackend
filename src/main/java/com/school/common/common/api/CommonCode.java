@@ -34,7 +34,16 @@ public enum CommonCode implements IErrorCode {
      * 金流
      */
     // 綠界商品名稱不能超過400字, 需要減少商品項目在下單
-    EC_PAY_PRODUCT_NAME_TO_LONG(10004, "Please remove some items from your cart before checking out."),
+    EC_PAY_PRODUCT_NAME_TO_LONG(20001, "Please remove some items from your cart before checking out."),
+    // 金流未實作
+    PAYMENT_SERVER_ERROR(20002, "payment server error"),
+
+    /**
+     * 訂單
+     */
+    // 訂單建立失敗, 請重新操作
+    ORDER_CREATION_FAILED(30001, "Order creation failed. Please try again."),
+
 
     /**
      * 加解密

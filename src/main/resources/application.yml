@@ -7,8 +7,10 @@ server:
   servlet:
     context-path: /api
 
+domain: "https://test.domain.com"
 module-path:
   member: "/member"
+  payment: "/payment"
 
 spring:
   application:
@@ -39,5 +41,6 @@ security:
 
 status:
   payment-gateway: 1 #金流開通狀態, 0 未開通, 1 已開通
+  channel: 1 #金流商 對應PaymentGatewayEnum
 
 

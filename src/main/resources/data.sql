@@ -32,7 +32,7 @@ SELECT 2, 'test', '$2a$10$/deCb62dHmckFjAvMIjiu.7fsY6wWqnbDVmvqakXsiU1IGITk7McW'
 NULL
 WHERE NOT EXISTS (SELECT 1 FROM `account` WHERE `id` = 2 OR `account` = 'test');
 
-INSERT INTO `payment_gateway` (`id`, `merchant_id`, `hash_key`, `hash_iv`, `return_url`, `notify_url`, `api_url`)
+INSERT INTO `payment_gateway` (`id`, `merchant_id`, `hash_key`, `hash_iv`, `return_url`, `api_url`)
 SELECT 1, '3002599', 'spPjZn66i0OhqJsQ', 'hT5OJckN45isQTTs',
-       'https://test.com', 'https://test.com', 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5'
+       'https://test.com', 'https://payment-stage.ecpay.com.tw/Cashier/AioCheckOut/V5'
 WHERE NOT EXISTS (SELECT 1 FROM `payment_gateway` WHERE `id` = 1 OR `merchant_id` = '3002599');

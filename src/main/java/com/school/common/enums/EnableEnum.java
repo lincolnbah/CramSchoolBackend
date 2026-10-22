@@ -1,7 +1,9 @@
 package com.school.common.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import lombok.Getter;
 
+@Getter
 public enum EnableEnum {
 
     DISABLE(0),
@@ -11,10 +13,6 @@ public enum EnableEnum {
 
     @EnumValue
     private final Integer code;
-
-    public Integer getCode() {
-        return this.code;
-    }
 
     EnableEnum(Integer code) {
         this.code = code;
