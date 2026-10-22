@@ -1,9 +1,11 @@
 package com.school.common.aspect.filter;
 
 import com.school.common.annotation.NotTokenVerify;
+import com.school.common.annotation.VerifyPaymentGateway;
 import com.school.common.common.api.CommonCode;
 import com.school.common.common.constant.CommonConstants;
 import com.school.common.common.exception.ApiException;
+import com.school.common.config.CustomerActivationStatusConfig;
 import com.school.common.dto.LoginUserDTO;
 import com.school.common.entity.Account;
 import com.school.common.enums.EnableEnum;
@@ -52,15 +54,24 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final HandlerExceptionResolver handlerExceptionResolver;
 
+    private final CustomerActivationStatusConfig customerActivationStatusConfig;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
         try {
-            if (Objects.equals(isAuthNeeded(request), Boolean.FALSE)) {
+            if (Objects.equals(this.isAuthNeeded(request), Boolean.FALSE)) {
                 chain.doFilter(request, response);
                 return;
             }
 
-            if (Objects.equals(isApiNeeded(request), Boolean.FALSE)) {
+            HandlerExecutionChain executionChain = this.buildHandlerExecutionChain(request);
+            if (Objects.equals(this.isFunctionalStatusNeeded(executionChain), Boolean.FALSE)) {
+                log.error("當前功能未開通");
+                handlerExceptionResolver.resolveException(request, response, null, new ApiException(CommonCode.FEATURE_NOT_YET_AVAILABLE));
+                return;
+            }
+
+            if (Objects.equals(this.isApiNeeded(executionChain), Boolean.FALSE)) {
                 chain.doFilter(request, response);
                 return;
             }
@@ -193,10 +204,46 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     /**
      * 自定義過濾api
      *
-     * @param request request
+     * @param executionChain executionChain
      * @return boolean
      */
-    private boolean isApiNeeded(HttpServletRequest request) {
+    private boolean isApiNeeded(HandlerExecutionChain executionChain) {
+        try {
+            HandlerMethod method = (HandlerMethod) executionChain.getHandler();
+
+            NotTokenVerify notTokenVerify = method.getMethodAnnotation(NotTokenVerify.class);
+            if (notTokenVerify != null) {
+                return Boolean.FALSE;
+            }
+        } catch (Exception e) {
+            log.error("api驗證異常, msg:{}", e.getMessage(), e);
+            throw new ApiException(CommonCode.API_VERIFY_ERROR);
+        }
+        return Boolean.TRUE;
+    }
+
+    /**
+     * 檢查功能是否開通
+     *
+     * @param executionChain executionChain
+     * @return boolean
+     */
+    private boolean isFunctionalStatusNeeded(HandlerExecutionChain executionChain) {
+        try {
+            HandlerMethod method = (HandlerMethod) executionChain.getHandler();
+
+            VerifyPaymentGateway verifyPaymentGateway = method.getMethodAnnotation(VerifyPaymentGateway.class);
+            if (verifyPaymentGateway != null) {
+                return Objects.equals(customerActivationStatusConfig.getPaymentGatewayStatus(), 1);
+            }
+        } catch (Exception e) {
+            log.error("api驗證異常, msg:{}", e.getMessage(), e);
+            throw new ApiException(CommonCode.API_VERIFY_ERROR);
+        }
+        return Boolean.TRUE;
+    }
+
+    private HandlerExecutionChain buildHandlerExecutionChain(HttpServletRequest request) {
         try {
             if (handlerMapping.usesPathPatterns()
                     && !ServletRequestPathUtils.hasParsedRequestPath(request)) {
@@ -206,24 +253,28 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             HandlerExecutionChain executionChain = handlerMapping.getHandler(request);
 
             if (executionChain == null || !(executionChain.getHandler() instanceof HandlerMethod)) {
-                throw new ApiException(CommonCode.API_HEADER_ERROR);
+                throw new ApiException(CommonCode.INVALID_REQUEST);
             }
-
-            HandlerMethod method = (HandlerMethod) executionChain.getHandler();
-
-            NotTokenVerify notTokenVerify = method.getMethodAnnotation(NotTokenVerify.class);
-            if (notTokenVerify != null) {
-                return Boolean.FALSE;
-            }
+            return executionChain;
         } catch (Exception e) {
             log.error("api驗證異常, msg:{}", e.getMessage(), e);
-            throw new ApiException(CommonCode.API_HEADER_ERROR);
+            throw new ApiException(CommonCode.FAILED);
         }
-        return Boolean.TRUE;
     }
 
+    /**
+     * 免登錄過濾
+     *
+     * @param request request
+     * @return boolean
+     */
     public boolean isPublicRequest(HttpServletRequest request) {
-        return !isAuthNeeded(request) || !isApiNeeded(request);
+        if (!this.isAuthNeeded(request)) {
+            return Boolean.TRUE;
+        }
+
+        HandlerExecutionChain executionChain = this.buildHandlerExecutionChain(request);
+        return !this.isApiNeeded(executionChain);
     }
 
 }
