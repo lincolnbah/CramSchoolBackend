@@ -78,10 +78,10 @@ CREATE TABLE IF NOT EXISTS `order` (
 `payment_time` DATETIME NULL COMMENT '用戶付款時間',
 `status` INT NOT NULL COMMENT '狀態, 1 待處理, 2 處理中, 3 失敗, 4 成功, 5 取消',
 `payment_gateway` INT NULL COMMENT '三方金流',
-`message` TEXT NULL COMMENT '三方交易訊息';
+`message` TEXT NULL COMMENT '三方交易訊息',
 `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新時間',
 `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '創建時間',
-PRIMARY KEY (`id`)
+PRIMARY KEY (`id`),
 UNIQUE KEY `orderNo` (`order_no`)
 ) DEFAULT CHARSET=utf8mb4 COMMENT = '訂單';
 
