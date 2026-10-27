@@ -11,6 +11,7 @@ public enum OrderStatusEnum {
     FAILED(3, "Failed"),
     SUCCESS(4, "Success"),
     CANCEL(5, "Cancel"),
+    SUCCESS_SIMULATE_PAID(6, "Simulate Paid"),
 
     ;
 

@@ -11,7 +11,7 @@ import lombok.Data;
 @TableName("payment_gateway")
 public class PaymentGateway {
 
-    @TableId(type = IdType.AUTO)
+    @TableId
     @Schema(description = "主鍵")
     private Integer id;
 

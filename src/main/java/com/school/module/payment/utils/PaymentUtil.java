@@ -3,11 +3,12 @@ package com.school.module.payment.utils;
 import com.school.common.common.api.CommonCode;
 import com.school.common.common.exception.ApiException;
 import com.school.common.enums.PaymentGatewayEnum;
+import com.school.module.order.enums.StatusEnum;
+import com.school.module.payment.vo.PaymentNotifyVO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.net.URLEncoder;
-import java.util.Locale;
 import java.util.Map;
 
 @Component
@@ -62,7 +63,37 @@ public class PaymentUtil {
 
     // notify api
     public String returnNotifyUrl(PaymentGatewayEnum paymentGatewayEnum) {
-        return domain + path + module + "/notify/" + paymentGatewayEnum.name().toLowerCase(Locale.ROOT);
+        return domain + path + module + "/notify/" + paymentGatewayEnum.getCode();
+    }
+
+    /**
+     * 回調驗簽失敗
+     *
+     * @param statusEnum enum
+     * @param errorMsg   錯誤訊息
+     * @return vo
+     */
+    public static PaymentNotifyVO paySignError(StatusEnum statusEnum, String errorMsg) {
+        return new PaymentNotifyVO()
+                .setStatusEnum(statusEnum)
+                .setSignError(true)
+                .setStatusError(false)
+                .setOrderMessage(statusEnum.getText().concat("  訂單狀態/描述: ").concat(errorMsg));
+    }
+
+    /**
+     * 回調狀態失敗
+     *
+     * @param statusEnum enum
+     * @param errorMsg   錯誤訊息
+     * @return vo
+     */
+    public static PaymentNotifyVO payStatusError(StatusEnum statusEnum, String errorMsg) {
+        return new PaymentNotifyVO()
+                .setStatusEnum(statusEnum)
+                .setSignError(false)
+                .setStatusError(true)
+                .setOrderMessage(statusEnum.getText().concat("  訂單狀態/描述: ").concat(errorMsg));
     }
 
 }

@@ -4,6 +4,6 @@ import com.school.module.payment.entity.PaymentGateway;
 
 public interface PaymentGatewayService {
 
-    PaymentGateway findOne();
+    PaymentGateway findById(Integer id);
 
 }

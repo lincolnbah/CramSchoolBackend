@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `role_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='mapping表';
 
 CREATE TABLE IF NOT EXISTS `payment_gateway` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `merchant_id` varchar(255) NOT NULL COMMENT '商戶號',
   `hash_key` text,
   `hash_iv` text,

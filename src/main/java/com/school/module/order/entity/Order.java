@@ -8,10 +8,11 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Schema(description = "金流配置")
-@TableName("order")
+@TableName("`order`")
 public class Order {
 
     @TableId(type = IdType.AUTO)
@@ -37,7 +38,7 @@ public class Order {
     private String paymentType;
 
     @Schema(description = "用戶付款時間")
-    private String paymentTime;
+    private LocalDateTime paymentTime;
 
     @Schema(description = "訂單狀態")
     private OrderStatusEnum status;
